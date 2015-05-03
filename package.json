@@ -1,7 +1,7 @@
 {
   "name": "mary-mage",
-  "version": "0.0.5",
-  "description": "",
+  "version": "0.0.6",
+  "description": "Command line tool for Magento",
   "main": "marymage",
   "bin" : { "marymage" : "./marymage.js" },
   "scripts": {
@@ -9,6 +9,10 @@
   },
   "author": "David Belicza <david@belicza.com> (http://www.youama.com)",
   "license": "BSD-2-Clause",
+  "repository" : { 
+    "type" : "git", 
+    "url" : "https://github.com/DoveID/mary-mage-magento.git"
+  },
   "dependencies": {
     "commander": "~2.8.1",
     "xml2js" : "~0.4.8 "
