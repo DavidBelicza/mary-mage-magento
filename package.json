@@ -1,0 +1,16 @@
+{
+  "name": "mary-mage",
+  "version": "0.0.5",
+  "description": "",
+  "main": "marymage",
+  "bin" : { "marymage" : "./marymage.js" },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "David Belicza <david@belicza.com> (http://www.youama.com)",
+  "license": "BSD-2-Clause",
+  "dependencies": {
+    "commander": "~2.8.1",
+    "xml2js" : "~0.4.8 "
+  }
+}
