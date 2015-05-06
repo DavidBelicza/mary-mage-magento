@@ -29,37 +29,62 @@ Magento.prototype.save = function () {
 	}, 200);
 };
 Magento.prototype.findEvents = function () {
+	this.findInModulesBy('events', true);
+};
+Magento.prototype.findJobs = function () {
+	this.findInModulesBy('jobs', false);
+};
+Magento.prototype.findInModulesBy = function (parentTag, reverseGroup) {
 	var fs = require('fs');
 	if (fs.existsSync('magicmary.json') != true) {
 		return false;
 	}
 	var config = JSON.parse(fs.readFileSync('magicmary.json', 'utf8'));
-	collectAllEvent(config);
+	collectSubTags(config, parentTag, reverseGroup);
 	return true;
 };
 Magento.prototype.getEvents = function () {
-	return events;
+	return tags['events'];
 };
-var events = Array();
-var collectAllEvent = function (jsonObject, moduleName) {
+Magento.prototype.getJobs = function () {
+	return tags['jobs'];	
+};
+var tags = {
+	'events' : Array(),
+	'jobs' : Array()	
+};
+var collectSubTags = function (
+	jsonObject, 
+	parentTag, 
+	reverseGroup,
+	moduleName) {
 	if (jsonObject instanceof Object != true) return false;
 	if (jsonObject['config'] && jsonObject['config']['modules']) {
 		for (var i in jsonObject['config']['modules'][0])
 		moduleName = i;
 	}
 	for (var i in jsonObject) {
-		if (i == 'events') {			
+		if (i == parentTag) {			
 			for (var j in jsonObject[i][0]) {
 				var index = 0;
-				if (events[j]) {
-					index = events[j].length;
-				} else {
-					events[j] = new Array();
+				if (reverseGroup) {
+					if (tags[parentTag][j]) {
+						index = tags[parentTag][j].length;
+					} else {
+						tags[parentTag][j] = new Array();
+					}
+					tags[parentTag][j][index] = moduleName;
+				} else {				
+					if (tags[parentTag][moduleName]) {
+						index = tags[parentTag][moduleName].length;
+					} else {
+						tags[parentTag][moduleName] = new Array();
+					}
+					tags[parentTag][moduleName][index] = j;
 				}
-				events[j][index] = moduleName;
 			}
 		} else if (jsonObject[i] instanceof Object) {
-			collectAllEvent(jsonObject[i], moduleName);
+			collectSubTags(jsonObject[i], parentTag, reverseGroup, moduleName);
 		}
 	}
 };

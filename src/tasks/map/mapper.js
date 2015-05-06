@@ -28,7 +28,9 @@ function Mapper() {
 }
 
 Mapper.prototype.run = function(path) {	
-	this.map = crawler(path);
+    if (fs.existsSync(path)) {
+        this.map = crawler(path);
+    }	
 };
 Mapper.prototype.getMap = function () {
     return this.map;

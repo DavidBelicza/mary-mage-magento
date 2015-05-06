@@ -2,7 +2,7 @@ var commander = require('commander');
 var magento = require('./magento');
 
 commander
-    .version('0.0.1');
+    .version('0.0.7');
 
 commander
     .command('map [projectPath]')
@@ -27,21 +27,27 @@ commander
 
 commander
     .command('show [name]')
-    .description('List of all events and their modules.')
+    .description('List of all tasks and their modules. Name can be "jobs", "cron", or "events".')
     .action(function(name){
+        console.log('--------------------------------------------------------------------------------');
+        var tags = Array();
         if (name == 'events') {
             magento.findEvents();
-            var events = magento.getEvents();
-            if (events instanceof Object) {
-                for (var i in events) {
-                    console.log(i);
-                    for (var j in events[i]) {
-                        console.log('....' + events[i][j]);
-                    }
-                    console.log();
+            tags = magento.getEvents();
+        } else if (name == 'jobs' || name == 'cron') {
+            magento.findJobs();
+            tags = magento.getJobs();            
+        }        
+        if (tags instanceof Object) {
+            for (var i in tags) {
+                console.log(i);
+                for (var j in tags[i]) {
+                    console.log('....' + tags[i][j]);
                 }
+                console.log();
             }
         }
+        console.log('--------------------------------------------------------------------------------');
 });
 
 commander

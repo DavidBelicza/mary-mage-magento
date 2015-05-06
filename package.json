@@ -1,9 +1,19 @@
 {
   "name": "mary-mage",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Command line tool for Magento",
+  "keywords": [
+    "magento",
+    "mage",
+    "mary",
+    "shop",
+    "developer",
+    "tool"
+  ],
   "main": "marymage",
-  "bin" : { "marymage" : "./marymage.js" },
+  "bin" : { 
+    "marymage" : "./marymage.js" 
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
